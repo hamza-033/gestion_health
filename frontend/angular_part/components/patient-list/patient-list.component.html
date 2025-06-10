@@ -1,0 +1,15 @@
+<h2>Liste des Patients</h2>
+<ul class="patient-list">
+  <li *ngFor="let p of patients" class="patient-item">
+    <div class="patient-info">
+      <h3>{{ p.name }}</h3>
+      <p>Email: {{ p.email }}</p>
+      <p>Téléphone: {{ p.phone }}</p>
+      <small>ID: {{ p._id }}</small>
+    </div>
+    <div class="patient-actions">
+      <button class="btn-edit">Modifier</button>
+      <button class="btn-delete" (click)="delete(p._id)">Supprimer</button>
+    </div>
+  </li>
+</ul>

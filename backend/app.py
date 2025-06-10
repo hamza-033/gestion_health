@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from mongo_config import init_mongo
 from neo4j_config import init_neo4j
+from routes.patient_routes import patient_bp
 
 # Import des blueprints
 from routes.rendezvous_routes import rdv_bp
@@ -16,7 +17,9 @@ def create_app():
     # Enregistrer les blueprints
     app.register_blueprint(rdv_bp)
     app.register_blueprint(cons_bp)
-    return app
+    app.register_blueprint(patient_bp)
+
+return app
 
 if __name__ == "__main__":
     app = create_app()

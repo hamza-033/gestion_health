@@ -1,0 +1,14 @@
+<form (ngSubmit)="submit()" class="patient-form">
+  <h2>Ajouter un Patient</h2>
+
+  <label for="name">Nom Complet</label>
+  <input id="name" type="text" [(ngModel)]="patient.name" name="name" required>
+
+  <label for="email">Email</label>
+  <input id="email" type="email" [(ngModel)]="patient.email" name="email">
+
+  <label for="phone">Téléphone</label>
+  <input id="phone" type="tel" [(ngModel)]="patient.phone" name="phone">
+
+  <button type="submit">Enregistrer</button>
+</form>
