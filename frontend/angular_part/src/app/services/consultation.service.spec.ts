@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { ConsultService } from './consultation.service'; // Changé de ConsultationService à ConsultService
 
-import { ConsultationService } from './consultation.service';
-
-describe('ConsultationService', () => {
-  let service: ConsultationService;
+describe('ConsultService', () => { // Changé le nom du describe
+  let service: ConsultService; // Changé le type
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ConsultationService);
+    service = TestBed.inject(ConsultService); // Changé ici
   });
 
   it('should be created', () => {

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PatientListComponent } from './patient-list.component';
-import { PatientService } from '../../../src/app/services/patient.service';
+import { PatientService } from '../../src/app/services/patient.service';
 import { of, Subject } from 'rxjs';
 
 describe('PatientListComponent', () => {

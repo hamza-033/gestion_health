@@ -1,24 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { MedecinService } from './patient.service';
+import { PatientService } from './patient.service';
 
-describe('MedecinService', () => {
-  let service: MedecinService;
+describe('PatientService', () => {
+  let service: PatientService;
   let httpMock: HttpTestingController;
 
-  const mockMedecin = {
+  const mockPatient = {
     _id: '123',
-    nom: 'Dupont',
-    specialite: 'Cardiologie'
+    name: 'Jean Dupont',
+    email: 'jean.dupont@example.com',
+    phone: '0123456789'
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [MedecinService]
+      providers: [PatientService]
     });
 
-    service = TestBed.inject(MedecinService);
+    service = TestBed.inject(PatientService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -30,55 +31,55 @@ describe('MedecinService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should create a medecin', () => {
-    service.create(mockMedecin).subscribe(response => {
-      expect(response).toEqual(mockMedecin);
+  it('should create a patient', () => {
+    service.create(mockPatient).subscribe(response => {
+      expect(response).toEqual(mockPatient);
     });
 
-    const req = httpMock.expectOne('http://localhost:5000/medecins');
+    const req = httpMock.expectOne('http://localhost:5000/patients');
     expect(req.request.method).toBe('POST');
-    req.flush(mockMedecin);
+    req.flush(mockPatient);
   });
 
-  it('should get all medecins', () => {
-    const medecins = [mockMedecin];
+  it('should get all patients', () => {
+    const patients = [mockPatient];
 
     service.getAll().subscribe(response => {
-      expect(response).toEqual(medecins);
+      expect(response).toEqual(patients);
     });
 
-    const req = httpMock.expectOne('http://localhost:5000/medecins');
+    const req = httpMock.expectOne('http://localhost:5000/patients');
     expect(req.request.method).toBe('GET');
-    req.flush(medecins);
+    req.flush(patients);
   });
 
-  it('should update a medecin', () => {
-    const updated = { ...mockMedecin, nom: 'Durand' };
+  it('should update a patient', () => {
+    const updatedPatient = { ...mockPatient, name: 'Jean Durand' };
 
-    service.update(mockMedecin._id, updated).subscribe(response => {
-      expect(response).toEqual(updated);
+    service.update(mockPatient._id, updatedPatient).subscribe(response => {
+      expect(response).toEqual(updatedPatient);
     });
 
-    const req = httpMock.expectOne(`http://localhost:5000/medecins/${mockMedecin._id}`);
+    const req = httpMock.expectOne(`http://localhost:5000/patients/${mockPatient._id}`);
     expect(req.request.method).toBe('PUT');
-    req.flush(updated);
+    req.flush(updatedPatient);
   });
 
-  it('should delete a medecin', () => {
-    service.delete(mockMedecin._id).subscribe(response => {
-      expect(response).toEqual({});
+  it('should delete a patient', () => {
+    service.delete(mockPatient._id).subscribe(response => {
+      expect(response).toBeNull(); // Ou ce que votre API retourne
     });
 
-    const req = httpMock.expectOne(`http://localhost:5000/medecins/${mockMedecin._id}`);
+    const req = httpMock.expectOne(`http://localhost:5000/patients/${mockPatient._id}`);
     expect(req.request.method).toBe('DELETE');
-    req.flush({});
+    req.flush(null);
   });
 
   it('should emit and listen to refresh$', (done) => {
     service.refresh.subscribe(() => {
-      done(); // test passes if this is called
+      done(); // Le test passe si cette callback est appelée
     });
 
-    service.triggerRefresh();
+    service.refresh.next(); // Déclenche l'émission
   });
 });

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PatientFormComponent } from './patient-form.component';
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../src/app/services/patient.service';
 import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 

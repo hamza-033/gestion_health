@@ -1,24 +1,36 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { PatientService } from '../../src/app/services/patient.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
-@Component({
-  selector: 'app-patient-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './patient-form.component.html',
-  styleUrls: ['./patient-form.component.css']
+export interface Patient {
+  _id?: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+@Injectable({
+  providedIn: 'root'
 })
-export class PatientFormComponent {
-  private patientService = inject(PatientService);
-  patient = { name: '', email: '', phone: '' };
+export class PatientService {
+  private baseUrl = 'http://localhost:5000/patients';
+  refresh = new Subject<void>();
 
-  submit() {
-    this.patientService.create(this.patient).subscribe(() => {
-      alert('Patient créé');
-      this.patient = { name: '', email: '', phone: '' };
-      this.patientService.refresh.next();
-    });
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(this.baseUrl);
+  }
+
+  create(patient: Patient): Observable<Patient> {
+    return this.http.post<Patient>(this.baseUrl, patient);
+  }
+
+  update(id: string, patient: Patient): Observable<Patient> {
+    return this.http.put<Patient>(`${this.baseUrl}/${id}`, patient);
+  }
+
+  delete(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

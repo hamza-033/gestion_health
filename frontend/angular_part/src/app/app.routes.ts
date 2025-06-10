@@ -5,8 +5,7 @@ import { RendezvousListComponent } from '../../components/rendezvous-list/rendez
 import { RendezvousFormComponent } from '../../components/rendezvous-form/rendezvous-form.component';
 import { ConsultationFormComponent } from '../../components/consultation-form/consultation-form.component';
 import { PatientFormComponent } from '../../components/patient-form/patient-form.component';
-import { PatientListComponent  } from '../../components/patient-list/patient-list.component';
-
+import { PatientListComponent } from '../../components/patient-list/patient-list.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 export const routes: Routes = [
@@ -15,9 +14,9 @@ export const routes: Routes = [
   { path: 'list-rdv', component: RendezvousListComponent },
   { path: 'form-rdv', component: RendezvousFormComponent },
   { path: 'form-consult', component: ConsultationFormComponent },
+  { path: 'médecin/patients', component: PatientListComponent },
+  { path: 'médecin/patient/nouveau', component: PatientFormComponent },
+  { path: 'médecin/patient/modifier/:id', component: PatientFormComponent },
   { path: '', redirectTo: 'list-rdv', pathMatch: 'full' },
   { path: '**', redirectTo: 'list-rdv' }
-  { path: 'medecin/patients', component: PatientListComponent },
-  { path: 'medecin/patient/nouveau', component: PatientFormComponent },
-  { path: 'medecin/patient/modifier/:id', component: PatientFormComponent },
 ];

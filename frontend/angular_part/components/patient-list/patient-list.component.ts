@@ -17,7 +17,7 @@ export class PatientListComponent implements OnDestroy {
 
   constructor() {
     this.loadPatients();
-    this.sub = this.patientService.refresh$.subscribe(() => this.loadPatients());
+    this.sub = this.patientService.refresh.subscribe(() => this.loadPatients());
   }
 
   loadPatients() {
